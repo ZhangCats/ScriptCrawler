@@ -89,10 +89,10 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-MONGO_URI = 'mongodb://crawler:factubeFC3@47.104.214.146:27017'#数据库地址
+MONGO_URI = 'mongodb://crawler:factubeFC3@00.000.000.000:27017'#数据库地址
 MONGO_DATABASE = 'coinnews'#数据库名称
 MONGO_COLLECTION = 'coinnews_items'#数据库集合
 
-FENGCHAO_BASE = 'http://47.104.135.199:8088/'#蜂巢网络传输地址
-FENGCHAO_URL = 'fengchao/originalflash/crawler/import'#蜂巢数据库
+FENGCHAO_BASE = 'http://00.000.000.000:8088/'#蜂巢网络传输地址
+FENGCHAO_URL = 'xxxxxxxx/xxxxxxxxflash/xxxxxxx/import'#蜂巢数据库
 BUCKET_SIZE = 100#每次传输文件个数
