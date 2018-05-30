@@ -3,6 +3,10 @@ import scrapy
 from ..items import CoinnewsItem
 from datetime import datetime
 
+import dateutil
+import dateutil.parser
+import time
+
 class BabitSpider(scrapy.Spider):
     name = 'babit'
     allowed_domains = ['8btc.com']
@@ -45,8 +49,19 @@ class BabitSpider(scrapy.Spider):
         item['is_upload'] = False
         #快讯的id
         item['item_id'] = response.url.split('/')[-1]
-　　　　　　　　#用于删除快讯的时间
-        item['TTLtime'] = datetime.utcnow()
+　　　　　　　　#用于删除快讯的时间，自己加入时间作为索引
+        #item['TTLtime'] = datetime.utcnow()
+
+        #将快讯发布的时间作为索引，不自己添加时间
+　　　　　　　 #获得快讯发布时间的时间戳
+        timeStamp = int(dt.timestamp())
+　　　　　　　　#将时间戳转为时间格式字符串
+        timeArray = time.localtime(timeStamp)
+        dateStr = time.strftime("%Y-%m-%dT%H:%M:%SZ", timeArray)
+　　　　　　　　#再将格式字符串转为mongodb识别的ISOdate的时间格式
+        myDatetime = dateutil.parser.parse(dateStr)
+　　　　　　　　#将ISOdate时间存入mongodb
+        item['TTLtime'] = myDatetime
         yield item
 
 

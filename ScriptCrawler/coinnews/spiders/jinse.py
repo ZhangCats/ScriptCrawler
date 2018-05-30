@@ -4,6 +4,10 @@ import json
 from datetime import datetime
 from ..items import CoinnewsItem
 
+import dateutil
+import dateutil.parser
+import time
+
 class JinseSpider(scrapy.Spider):
     name = 'jinse'
     allowed_domains = ['jinse.com']
@@ -19,6 +23,12 @@ class JinseSpider(scrapy.Spider):
                 item['time'] = news['created_at']*1000
                 item['origin'] = "金色财经"
                 item['is_upload'] = False
-                item['TTLtime'] = datetime.utcnow()
+                #item['TTLtime'] = datetime.utcnow()
+      
+                timeStamp = news['created_at']
+                timeArray = time.localtime(timeStamp)
+                dateStr = time.strftime("%Y-%m-%dT%H:%M:%SZ", timeArray)
+                myDatetime = dateutil.parser.parse(dateStr)
+                item['TTLtime'] = myDatetime
                 yield item
         
